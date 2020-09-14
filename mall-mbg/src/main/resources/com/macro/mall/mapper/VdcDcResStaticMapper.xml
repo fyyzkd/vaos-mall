@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.macro.mall.mapper.VdcDcResStaticMapper">
+  <resultMap id="BaseResultMap" type="com.macro.mall.model.VdcDcResStatic">
+    <result column="vdc_id" jdbcType="BIGINT" property="vdcId" />
+    <result column="dcid" jdbcType="BIGINT" property="dcid" />
+    <result column="dcName" jdbcType="VARCHAR" property="dcname" />
+    <result column="instances" jdbcType="INTEGER" property="instances" />
+    <result column="cpu" jdbcType="INTEGER" property="cpu" />
+    <result column="cpu_rate" jdbcType="DOUBLE" property="cpuRate" />
+    <result column="MEMORY" jdbcType="INTEGER" property="memory" />
+    <result column="mem_rate" jdbcType="DOUBLE" property="memRate" />
+    <result column="DISK" jdbcType="INTEGER" property="disk" />
+    <result column="router" jdbcType="INTEGER" property="router" />
+    <result column="fireWalls" jdbcType="INTEGER" property="firewalls" />
+    <result column="fireWallSwitch" jdbcType="TINYINT" property="firewallswitch" />
+    <result column="pubNetIp" jdbcType="INTEGER" property="pubnetip" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    vdc_id, dcid, dcName, instances, cpu, cpu_rate, MEMORY, mem_rate, DISK, router, fireWalls, 
+    fireWallSwitch, pubNetIp
+  </sql>
+  <select id="selectByExample" parameterType="com.macro.mall.model.VdcDcResStaticExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from vdc_dc_res_static
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.macro.mall.model.VdcDcResStaticExample">
+    delete from vdc_dc_res_static
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.macro.mall.model.VdcDcResStatic">
+    insert into vdc_dc_res_static (vdc_id, dcid, dcName, 
+      instances, cpu, cpu_rate, 
+      MEMORY, mem_rate, DISK, 
+      router, fireWalls, fireWallSwitch, 
+      pubNetIp)
+    values (#{vdcId,jdbcType=BIGINT}, #{dcid,jdbcType=BIGINT}, #{dcname,jdbcType=VARCHAR}, 
+      #{instances,jdbcType=INTEGER}, #{cpu,jdbcType=INTEGER}, #{cpuRate,jdbcType=DOUBLE}, 
+      #{memory,jdbcType=INTEGER}, #{memRate,jdbcType=DOUBLE}, #{disk,jdbcType=INTEGER}, 
+      #{router,jdbcType=INTEGER}, #{firewalls,jdbcType=INTEGER}, #{firewallswitch,jdbcType=TINYINT}, 
+      #{pubnetip,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.macro.mall.model.VdcDcResStatic">
+    insert into vdc_dc_res_static
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="vdcId != null">
+        vdc_id,
+      </if>
+      <if test="dcid != null">
+        dcid,
+      </if>
+      <if test="dcname != null">
+        dcName,
+      </if>
+      <if test="instances != null">
+        instances,
+      </if>
+      <if test="cpu != null">
+        cpu,
+      </if>
+      <if test="cpuRate != null">
+        cpu_rate,
+      </if>
+      <if test="memory != null">
+        MEMORY,
+      </if>
+      <if test="memRate != null">
+        mem_rate,
+      </if>
+      <if test="disk != null">
+        DISK,
+      </if>
+      <if test="router != null">
+        router,
+      </if>
+      <if test="firewalls != null">
+        fireWalls,
+      </if>
+      <if test="firewallswitch != null">
+        fireWallSwitch,
+      </if>
+      <if test="pubnetip != null">
+        pubNetIp,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="vdcId != null">
+        #{vdcId,jdbcType=BIGINT},
+      </if>
+      <if test="dcid != null">
+        #{dcid,jdbcType=BIGINT},
+      </if>
+      <if test="dcname != null">
+        #{dcname,jdbcType=VARCHAR},
+      </if>
+      <if test="instances != null">
+        #{instances,jdbcType=INTEGER},
+      </if>
+      <if test="cpu != null">
+        #{cpu,jdbcType=INTEGER},
+      </if>
+      <if test="cpuRate != null">
+        #{cpuRate,jdbcType=DOUBLE},
+      </if>
+      <if test="memory != null">
+        #{memory,jdbcType=INTEGER},
+      </if>
+      <if test="memRate != null">
+        #{memRate,jdbcType=DOUBLE},
+      </if>
+      <if test="disk != null">
+        #{disk,jdbcType=INTEGER},
+      </if>
+      <if test="router != null">
+        #{router,jdbcType=INTEGER},
+      </if>
+      <if test="firewalls != null">
+        #{firewalls,jdbcType=INTEGER},
+      </if>
+      <if test="firewallswitch != null">
+        #{firewallswitch,jdbcType=TINYINT},
+      </if>
+      <if test="pubnetip != null">
+        #{pubnetip,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.macro.mall.model.VdcDcResStaticExample" resultType="java.lang.Long">
+    select count(*) from vdc_dc_res_static
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update vdc_dc_res_static
+    <set>
+      <if test="record.vdcId != null">
+        vdc_id = #{record.vdcId,jdbcType=BIGINT},
+      </if>
+      <if test="record.dcid != null">
+        dcid = #{record.dcid,jdbcType=BIGINT},
+      </if>
+      <if test="record.dcname != null">
+        dcName = #{record.dcname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.instances != null">
+        instances = #{record.instances,jdbcType=INTEGER},
+      </if>
+      <if test="record.cpu != null">
+        cpu = #{record.cpu,jdbcType=INTEGER},
+      </if>
+      <if test="record.cpuRate != null">
+        cpu_rate = #{record.cpuRate,jdbcType=DOUBLE},
+      </if>
+      <if test="record.memory != null">
+        MEMORY = #{record.memory,jdbcType=INTEGER},
+      </if>
+      <if test="record.memRate != null">
+        mem_rate = #{record.memRate,jdbcType=DOUBLE},
+      </if>
+      <if test="record.disk != null">
+        DISK = #{record.disk,jdbcType=INTEGER},
+      </if>
+      <if test="record.router != null">
+        router = #{record.router,jdbcType=INTEGER},
+      </if>
+      <if test="record.firewalls != null">
+        fireWalls = #{record.firewalls,jdbcType=INTEGER},
+      </if>
+      <if test="record.firewallswitch != null">
+        fireWallSwitch = #{record.firewallswitch,jdbcType=TINYINT},
+      </if>
+      <if test="record.pubnetip != null">
+        pubNetIp = #{record.pubnetip,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update vdc_dc_res_static
+    set vdc_id = #{record.vdcId,jdbcType=BIGINT},
+      dcid = #{record.dcid,jdbcType=BIGINT},
+      dcName = #{record.dcname,jdbcType=VARCHAR},
+      instances = #{record.instances,jdbcType=INTEGER},
+      cpu = #{record.cpu,jdbcType=INTEGER},
+      cpu_rate = #{record.cpuRate,jdbcType=DOUBLE},
+      MEMORY = #{record.memory,jdbcType=INTEGER},
+      mem_rate = #{record.memRate,jdbcType=DOUBLE},
+      DISK = #{record.disk,jdbcType=INTEGER},
+      router = #{record.router,jdbcType=INTEGER},
+      fireWalls = #{record.firewalls,jdbcType=INTEGER},
+      fireWallSwitch = #{record.firewallswitch,jdbcType=TINYINT},
+      pubNetIp = #{record.pubnetip,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

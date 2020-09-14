@@ -1,0 +1,588 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.macro.mall.mapper.UserInfoMapper">
+  <resultMap id="BaseResultMap" type="com.macro.mall.model.UserInfo">
+    <id column="userid" jdbcType="BIGINT" property="userid" />
+    <result column="vdcid" jdbcType="BIGINT" property="vdcid" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="orgid" jdbcType="BIGINT" property="orgid" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="extra" jdbcType="VARCHAR" property="extra" />
+    <result column="createdtime" jdbcType="TIMESTAMP" property="createdtime" />
+    <result column="auditedtime" jdbcType="TIMESTAMP" property="auditedtime" />
+    <result column="islock" jdbcType="INTEGER" property="islock" />
+    <result column="lockperiod" jdbcType="INTEGER" property="lockperiod" />
+    <result column="locktime" jdbcType="TIMESTAMP" property="locktime" />
+    <result column="isdisable" jdbcType="INTEGER" property="isdisable" />
+    <result column="usedate" jdbcType="VARCHAR" property="usedate" />
+    <result column="iplimit" jdbcType="INTEGER" property="iplimit" />
+    <result column="allowIp" jdbcType="VARCHAR" property="allowip" />
+    <result column="begintime" jdbcType="VARCHAR" property="begintime" />
+    <result column="endtime" jdbcType="VARCHAR" property="endtime" />
+    <result column="maxtrytime" jdbcType="INTEGER" property="maxtrytime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.macro.mall.model.UserInfo">
+    <result column="description" jdbcType="LONGVARCHAR" property="description" />
+    <result column="opinion" jdbcType="LONGVARCHAR" property="opinion" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    userid, vdcid, username, password, email, phone, orgid, type, status, extra, createdtime, 
+    auditedtime, islock, lockperiod, locktime, isdisable, usedate, iplimit, allowIp, 
+    begintime, endtime, maxtrytime
+  </sql>
+  <sql id="Blob_Column_List">
+    description, opinion
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.macro.mall.model.UserInfoExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from user_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.macro.mall.model.UserInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from user_info
+    where userid = #{userid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from user_info
+    where userid = #{userid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.macro.mall.model.UserInfoExample">
+    delete from user_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.macro.mall.model.UserInfo">
+    insert into user_info (userid, vdcid, username, 
+      password, email, phone, 
+      orgid, type, status, 
+      extra, createdtime, auditedtime, 
+      islock, lockperiod, locktime, 
+      isdisable, usedate, iplimit, 
+      allowIp, begintime, endtime, 
+      maxtrytime, description, opinion
+      )
+    values (#{userid,jdbcType=BIGINT}, #{vdcid,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{orgid,jdbcType=BIGINT}, #{type,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{extra,jdbcType=VARCHAR}, #{createdtime,jdbcType=TIMESTAMP}, #{auditedtime,jdbcType=TIMESTAMP}, 
+      #{islock,jdbcType=INTEGER}, #{lockperiod,jdbcType=INTEGER}, #{locktime,jdbcType=TIMESTAMP}, 
+      #{isdisable,jdbcType=INTEGER}, #{usedate,jdbcType=VARCHAR}, #{iplimit,jdbcType=INTEGER}, 
+      #{allowip,jdbcType=VARCHAR}, #{begintime,jdbcType=VARCHAR}, #{endtime,jdbcType=VARCHAR}, 
+      #{maxtrytime,jdbcType=INTEGER}, #{description,jdbcType=LONGVARCHAR}, #{opinion,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.macro.mall.model.UserInfo">
+    insert into user_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        userid,
+      </if>
+      <if test="vdcid != null">
+        vdcid,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="orgid != null">
+        orgid,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="extra != null">
+        extra,
+      </if>
+      <if test="createdtime != null">
+        createdtime,
+      </if>
+      <if test="auditedtime != null">
+        auditedtime,
+      </if>
+      <if test="islock != null">
+        islock,
+      </if>
+      <if test="lockperiod != null">
+        lockperiod,
+      </if>
+      <if test="locktime != null">
+        locktime,
+      </if>
+      <if test="isdisable != null">
+        isdisable,
+      </if>
+      <if test="usedate != null">
+        usedate,
+      </if>
+      <if test="iplimit != null">
+        iplimit,
+      </if>
+      <if test="allowip != null">
+        allowIp,
+      </if>
+      <if test="begintime != null">
+        begintime,
+      </if>
+      <if test="endtime != null">
+        endtime,
+      </if>
+      <if test="maxtrytime != null">
+        maxtrytime,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="opinion != null">
+        opinion,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="vdcid != null">
+        #{vdcid,jdbcType=BIGINT},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="orgid != null">
+        #{orgid,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="extra != null">
+        #{extra,jdbcType=VARCHAR},
+      </if>
+      <if test="createdtime != null">
+        #{createdtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditedtime != null">
+        #{auditedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="islock != null">
+        #{islock,jdbcType=INTEGER},
+      </if>
+      <if test="lockperiod != null">
+        #{lockperiod,jdbcType=INTEGER},
+      </if>
+      <if test="locktime != null">
+        #{locktime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isdisable != null">
+        #{isdisable,jdbcType=INTEGER},
+      </if>
+      <if test="usedate != null">
+        #{usedate,jdbcType=VARCHAR},
+      </if>
+      <if test="iplimit != null">
+        #{iplimit,jdbcType=INTEGER},
+      </if>
+      <if test="allowip != null">
+        #{allowip,jdbcType=VARCHAR},
+      </if>
+      <if test="begintime != null">
+        #{begintime,jdbcType=VARCHAR},
+      </if>
+      <if test="endtime != null">
+        #{endtime,jdbcType=VARCHAR},
+      </if>
+      <if test="maxtrytime != null">
+        #{maxtrytime,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="opinion != null">
+        #{opinion,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.macro.mall.model.UserInfoExample" resultType="java.lang.Long">
+    select count(*) from user_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update user_info
+    <set>
+      <if test="record.userid != null">
+        userid = #{record.userid,jdbcType=BIGINT},
+      </if>
+      <if test="record.vdcid != null">
+        vdcid = #{record.vdcid,jdbcType=BIGINT},
+      </if>
+      <if test="record.username != null">
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null">
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null">
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null">
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orgid != null">
+        orgid = #{record.orgid,jdbcType=BIGINT},
+      </if>
+      <if test="record.type != null">
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.extra != null">
+        extra = #{record.extra,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdtime != null">
+        createdtime = #{record.createdtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.auditedtime != null">
+        auditedtime = #{record.auditedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.islock != null">
+        islock = #{record.islock,jdbcType=INTEGER},
+      </if>
+      <if test="record.lockperiod != null">
+        lockperiod = #{record.lockperiod,jdbcType=INTEGER},
+      </if>
+      <if test="record.locktime != null">
+        locktime = #{record.locktime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isdisable != null">
+        isdisable = #{record.isdisable,jdbcType=INTEGER},
+      </if>
+      <if test="record.usedate != null">
+        usedate = #{record.usedate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iplimit != null">
+        iplimit = #{record.iplimit,jdbcType=INTEGER},
+      </if>
+      <if test="record.allowip != null">
+        allowIp = #{record.allowip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.begintime != null">
+        begintime = #{record.begintime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.endtime != null">
+        endtime = #{record.endtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.maxtrytime != null">
+        maxtrytime = #{record.maxtrytime,jdbcType=INTEGER},
+      </if>
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.opinion != null">
+        opinion = #{record.opinion,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update user_info
+    set userid = #{record.userid,jdbcType=BIGINT},
+      vdcid = #{record.vdcid,jdbcType=BIGINT},
+      username = #{record.username,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      orgid = #{record.orgid,jdbcType=BIGINT},
+      type = #{record.type,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      extra = #{record.extra,jdbcType=VARCHAR},
+      createdtime = #{record.createdtime,jdbcType=TIMESTAMP},
+      auditedtime = #{record.auditedtime,jdbcType=TIMESTAMP},
+      islock = #{record.islock,jdbcType=INTEGER},
+      lockperiod = #{record.lockperiod,jdbcType=INTEGER},
+      locktime = #{record.locktime,jdbcType=TIMESTAMP},
+      isdisable = #{record.isdisable,jdbcType=INTEGER},
+      usedate = #{record.usedate,jdbcType=VARCHAR},
+      iplimit = #{record.iplimit,jdbcType=INTEGER},
+      allowIp = #{record.allowip,jdbcType=VARCHAR},
+      begintime = #{record.begintime,jdbcType=VARCHAR},
+      endtime = #{record.endtime,jdbcType=VARCHAR},
+      maxtrytime = #{record.maxtrytime,jdbcType=INTEGER},
+      description = #{record.description,jdbcType=LONGVARCHAR},
+      opinion = #{record.opinion,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update user_info
+    set userid = #{record.userid,jdbcType=BIGINT},
+      vdcid = #{record.vdcid,jdbcType=BIGINT},
+      username = #{record.username,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      orgid = #{record.orgid,jdbcType=BIGINT},
+      type = #{record.type,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      extra = #{record.extra,jdbcType=VARCHAR},
+      createdtime = #{record.createdtime,jdbcType=TIMESTAMP},
+      auditedtime = #{record.auditedtime,jdbcType=TIMESTAMP},
+      islock = #{record.islock,jdbcType=INTEGER},
+      lockperiod = #{record.lockperiod,jdbcType=INTEGER},
+      locktime = #{record.locktime,jdbcType=TIMESTAMP},
+      isdisable = #{record.isdisable,jdbcType=INTEGER},
+      usedate = #{record.usedate,jdbcType=VARCHAR},
+      iplimit = #{record.iplimit,jdbcType=INTEGER},
+      allowIp = #{record.allowip,jdbcType=VARCHAR},
+      begintime = #{record.begintime,jdbcType=VARCHAR},
+      endtime = #{record.endtime,jdbcType=VARCHAR},
+      maxtrytime = #{record.maxtrytime,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.macro.mall.model.UserInfo">
+    update user_info
+    <set>
+      <if test="vdcid != null">
+        vdcid = #{vdcid,jdbcType=BIGINT},
+      </if>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="orgid != null">
+        orgid = #{orgid,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="extra != null">
+        extra = #{extra,jdbcType=VARCHAR},
+      </if>
+      <if test="createdtime != null">
+        createdtime = #{createdtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditedtime != null">
+        auditedtime = #{auditedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="islock != null">
+        islock = #{islock,jdbcType=INTEGER},
+      </if>
+      <if test="lockperiod != null">
+        lockperiod = #{lockperiod,jdbcType=INTEGER},
+      </if>
+      <if test="locktime != null">
+        locktime = #{locktime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isdisable != null">
+        isdisable = #{isdisable,jdbcType=INTEGER},
+      </if>
+      <if test="usedate != null">
+        usedate = #{usedate,jdbcType=VARCHAR},
+      </if>
+      <if test="iplimit != null">
+        iplimit = #{iplimit,jdbcType=INTEGER},
+      </if>
+      <if test="allowip != null">
+        allowIp = #{allowip,jdbcType=VARCHAR},
+      </if>
+      <if test="begintime != null">
+        begintime = #{begintime,jdbcType=VARCHAR},
+      </if>
+      <if test="endtime != null">
+        endtime = #{endtime,jdbcType=VARCHAR},
+      </if>
+      <if test="maxtrytime != null">
+        maxtrytime = #{maxtrytime,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="opinion != null">
+        opinion = #{opinion,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where userid = #{userid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.macro.mall.model.UserInfo">
+    update user_info
+    set vdcid = #{vdcid,jdbcType=BIGINT},
+      username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      orgid = #{orgid,jdbcType=BIGINT},
+      type = #{type,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      extra = #{extra,jdbcType=VARCHAR},
+      createdtime = #{createdtime,jdbcType=TIMESTAMP},
+      auditedtime = #{auditedtime,jdbcType=TIMESTAMP},
+      islock = #{islock,jdbcType=INTEGER},
+      lockperiod = #{lockperiod,jdbcType=INTEGER},
+      locktime = #{locktime,jdbcType=TIMESTAMP},
+      isdisable = #{isdisable,jdbcType=INTEGER},
+      usedate = #{usedate,jdbcType=VARCHAR},
+      iplimit = #{iplimit,jdbcType=INTEGER},
+      allowIp = #{allowip,jdbcType=VARCHAR},
+      begintime = #{begintime,jdbcType=VARCHAR},
+      endtime = #{endtime,jdbcType=VARCHAR},
+      maxtrytime = #{maxtrytime,jdbcType=INTEGER},
+      description = #{description,jdbcType=LONGVARCHAR},
+      opinion = #{opinion,jdbcType=LONGVARCHAR}
+    where userid = #{userid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.macro.mall.model.UserInfo">
+    update user_info
+    set vdcid = #{vdcid,jdbcType=BIGINT},
+      username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      orgid = #{orgid,jdbcType=BIGINT},
+      type = #{type,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      extra = #{extra,jdbcType=VARCHAR},
+      createdtime = #{createdtime,jdbcType=TIMESTAMP},
+      auditedtime = #{auditedtime,jdbcType=TIMESTAMP},
+      islock = #{islock,jdbcType=INTEGER},
+      lockperiod = #{lockperiod,jdbcType=INTEGER},
+      locktime = #{locktime,jdbcType=TIMESTAMP},
+      isdisable = #{isdisable,jdbcType=INTEGER},
+      usedate = #{usedate,jdbcType=VARCHAR},
+      iplimit = #{iplimit,jdbcType=INTEGER},
+      allowIp = #{allowip,jdbcType=VARCHAR},
+      begintime = #{begintime,jdbcType=VARCHAR},
+      endtime = #{endtime,jdbcType=VARCHAR},
+      maxtrytime = #{maxtrytime,jdbcType=INTEGER}
+    where userid = #{userid,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.macro.mall.mapper.InstanceDcVdcRelMapper">
+  <resultMap id="BaseResultMap" type="com.macro.mall.model.InstanceDcVdcRel">
+    <result column="instanceid" jdbcType="BIGINT" property="instanceid" />
+    <result column="vdcid" jdbcType="BIGINT" property="vdcid" />
+    <result column="dcid" jdbcType="BIGINT" property="dcid" />
+    <result column="tenantid" jdbcType="BIGINT" property="tenantid" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    instanceid, vdcid, dcid, tenantid
+  </sql>
+  <select id="selectByExample" parameterType="com.macro.mall.model.InstanceDcVdcRelExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from instance_dc_vdc_rel
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.macro.mall.model.InstanceDcVdcRelExample">
+    delete from instance_dc_vdc_rel
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.macro.mall.model.InstanceDcVdcRel">
+    insert into instance_dc_vdc_rel (instanceid, vdcid, dcid, 
+      tenantid)
+    values (#{instanceid,jdbcType=BIGINT}, #{vdcid,jdbcType=BIGINT}, #{dcid,jdbcType=BIGINT}, 
+      #{tenantid,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.macro.mall.model.InstanceDcVdcRel">
+    insert into instance_dc_vdc_rel
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="instanceid != null">
+        instanceid,
+      </if>
+      <if test="vdcid != null">
+        vdcid,
+      </if>
+      <if test="dcid != null">
+        dcid,
+      </if>
+      <if test="tenantid != null">
+        tenantid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="instanceid != null">
+        #{instanceid,jdbcType=BIGINT},
+      </if>
+      <if test="vdcid != null">
+        #{vdcid,jdbcType=BIGINT},
+      </if>
+      <if test="dcid != null">
+        #{dcid,jdbcType=BIGINT},
+      </if>
+      <if test="tenantid != null">
+        #{tenantid,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.macro.mall.model.InstanceDcVdcRelExample" resultType="java.lang.Long">
+    select count(*) from instance_dc_vdc_rel
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update instance_dc_vdc_rel
+    <set>
+      <if test="record.instanceid != null">
+        instanceid = #{record.instanceid,jdbcType=BIGINT},
+      </if>
+      <if test="record.vdcid != null">
+        vdcid = #{record.vdcid,jdbcType=BIGINT},
+      </if>
+      <if test="record.dcid != null">
+        dcid = #{record.dcid,jdbcType=BIGINT},
+      </if>
+      <if test="record.tenantid != null">
+        tenantid = #{record.tenantid,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update instance_dc_vdc_rel
+    set instanceid = #{record.instanceid,jdbcType=BIGINT},
+      vdcid = #{record.vdcid,jdbcType=BIGINT},
+      dcid = #{record.dcid,jdbcType=BIGINT},
+      tenantid = #{record.tenantid,jdbcType=BIGINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
